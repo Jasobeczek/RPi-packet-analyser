@@ -45,8 +45,8 @@ class GraphManager(object):
                 #if packet.haslayer(Dot11Elt) and packet[Dot11Elt].info != "":
                     #self.graph[src][dst]['ssid'] = (packet[Dot11Elt].info)
             else:
-                if packet.haslayer(Dot11Elt) and packet[Dot11Elt].info != "":# and dst == "ff:ff:ff:ff:ff:ff":
-                    #print '{} {}'.format(src,packet[Dot11Elt].info)
+                if packet.haslayer(Dot11Elt) and packet[Dot11Elt].info != "" and dst == "ff:ff:ff:ff:ff:ff":
+                    #print '{} {} {}'.format(src, dst, packet[Dot11Elt].info)
                     self.graph.add_edge(src, dst, {'packets': [packet], 'ssid': packet[Dot11Elt].info})
                 else:
                     self.graph.add_edge(src, dst, {'packets': [packet], 'ssid': 'private'})
@@ -144,7 +144,7 @@ class GraphManager(object):
             _ = packet[2]
             return "%s:%i" % (src, _.sport), "%s:%i" % (dst, _.dport), packet
 
-    def draw(self, filename=None, figsize=(50, 50)):
+    def draw(self, filename=None, figsize=(1, 1)):
         graph = self.get_graphviz_format()
         for node in graph.nodes():
             node.attr['shape'] = 'rectangle'

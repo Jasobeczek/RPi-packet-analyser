@@ -50,4 +50,4 @@ if __name__ == '__main__':
 
         if args.graphviz:
             g.get_graphviz_format(args.graphviz)
-        print "Done with drowing!"
+        print "Done with drawing!"
