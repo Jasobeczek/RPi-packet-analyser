@@ -21,7 +21,7 @@ ifconfig $interface up
 echo "Should be done!"
 
 #echo "TCP-dump start..."
-tcpdump -i $interface -w packets2.cap &
+tcpdump -i $interface -w packets.pcap &
 
 channel=1
 doWhile=true
@@ -35,8 +35,14 @@ do
 		channel=1;
 		doWhile=loop;
 	fi
+	echo "-----------------"
+	echo "Known AP stations"
+	python /root/lan/wifi_analyse.py -i packets.pcap &
+	echo "-----------------"
 done
-
-echo "Results"
-python /root/lan/analyse.py -i packets2.cap
-
+if [ "$interface" = "wlan1" ]; then
+	python /root/lan/PcapViz/main.py -i /root/lan/packets.pcap -o /root/lan/topology.png --dot11 &
+else
+	python /root/lan/PcapViz/main.py -i /root/lan/packets.pcap -o /root/lan//topology.png --layer2 &
+fi
+gpicview topology.png

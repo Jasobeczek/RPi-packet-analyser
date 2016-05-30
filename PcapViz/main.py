@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
         print "Making graph edges..."
         g = GraphManager(packets, layer=layer)
-        print "Done"
+        print "Done with edges!"
         print "Drawing..."
         if args.out:
             g.draw(filename=args.out)
@@ -50,4 +50,4 @@ if __name__ == '__main__':
 
         if args.graphviz:
             g.get_graphviz_format(args.graphviz)
-        print "Done!"
+        print "Done with drowing!"
